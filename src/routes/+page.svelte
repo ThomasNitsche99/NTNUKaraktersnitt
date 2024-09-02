@@ -3,7 +3,7 @@
 	export let form;
 	
 </script>
-
+<h1>HALLOOOO</h1>
 <div class="container h-full mx-auto flex justify-center items-center">
 	<form method="post" enctype="multipart/form-data">
 		<label class="label">
