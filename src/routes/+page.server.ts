@@ -1,18 +1,20 @@
 import { fail } from '@sveltejs/kit';
 import { SECRET_KEY, HEROKU_APP} from '$env/static/private';
+import type { gradeAverage } from '$lib/types.js';
 
-export function load({}) {
+export function load({ }) {
+
 	return {
-		message: 'Hello'
+		submitted: false
 	};
 }
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ request, fetch}) => {
 		// Handle file upload
 		const data = await request.formData();
-		const file = data.get('file'); 
-
+		const file = data.get('files'); 
+		
         //TODO: More validation of file (zod)
 		if (!file) {
 			return fail(400, { file, missing: true });
@@ -43,9 +45,10 @@ export const actions = {
 
 		// Process the successful response
 		const resultData = await response.json();
-		console.log(resultData);
 
-        return {success: resultData}
+		const gradeaverage = resultData.result as gradeAverage;
+
+        return {gradeaverage }
 
         
 	}
